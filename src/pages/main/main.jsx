@@ -3,33 +3,40 @@ import { View, Text } from '@tarojs/components'
 import './main.scss'
 
 function Main(props) {
-  const wind_direction = ['东风', '', '', '西北风', '', '', '东南风'] // 风向
+  const wind_direction = ['微风', '东北风', '东风', '东南风', '南风', '西南风', '西风', '西北风', '北风']; // 风向
+
   const [isShow, setShow] = useState(true);
+  let [observe, setObserve] = useState({});
+  let [tips, setTips] = useState({});
   useEffect(() => {
     setTimeout(() => {
       setShow(!isShow);
-      // console.log('arr--', isShow);
     }, 8000);
   }, [isShow]);
-
+  useEffect(() => {
+    if (props.weatherList) {
+      setObserve(props.weatherList.observe || {});
+      setTips(props.weatherList.tips || {});
+    }
+  }, [props.weatherList]);
   return (
     <View className="main">
       <View className="t-c">
-          <View className="f-100">{props.weatherList.observe.degree}°</View>
-          <View>{props.weatherList.observe.weather}</View>
+          <View className="f-100">{observe.degree}°</View>
+          <View>{observe.weather}</View>
 
           <View className="animation">
             <Text className={isShow ? 'show item' : 'item'}>
-              湿度 {props.weatherList.observe.humidity}%
+              湿度 {observe.humidity}%
             </Text>
             <Text className={isShow ? 'item' : 'show item'}>
-              {props.weatherList.direction[props.weatherList.observe.wind_direction]} {props.weatherList.observe.wind_power}级
+              {wind_direction[observe.wind_direction]} {observe.wind_power}级
             </Text>
           </View>
 
           <View className="ptb-50">
             <Text>
-              {obser_tips ? props.weatherList.tips.observe[0] : props.weatherList.tips.observe[1]}
+              {tips.observe && tips.observe[0]}
             </Text>
           </View>
 

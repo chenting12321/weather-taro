@@ -35,10 +35,6 @@ function Index() {
     try {
       activeVal= Taro.getStorageSync('active');
       console.log('activeVal', activeVal)
-      // if (value) {
-      //   // Do something with return value
-      //   httpWeather(value.split(','))
-      // }
     } catch (e) {
       // Do something when catch error
       console.log(e)
@@ -50,7 +46,7 @@ function Index() {
     if (activeVal.length) {
       httpWeather(Array.isArray(activeVal) ? activeVal : activeVal.split(','))
     }
-    console.log('...', activeVal);
+    // console.log('...', activeVal);
     
     new Promise ((res) => {
       if (process.env.TARO_ENV === 'weapp') { // weapp
@@ -63,18 +59,16 @@ function Index() {
                 'content-type': 'application/json'
               }
             }).then((data) => {
-              console.log('res', res);
-              console.log('data', data)
               let _data = data.data.regeocode.addressComponent
-              Taro.setStorage({ // 当前定位
-                key: "loct",
-                data: _data.district
-              })
               if (!_data.city.length) {
                 address.push(_data.province, _data.province, _data.district)
               } else {
                 address.push(_data.province, _data.city, _data.district)
               }
+              Taro.setStorage({ // 当前定位
+                key: "loct",
+                data: address
+              })
               // res();
             })
           ]
@@ -137,8 +131,8 @@ function Index() {
           <Text>发布</Text>
         </View>
         <View style={`background-color:` + bgc} className="air-quality">
-          <View>{weatherList.air.aqi}</View>
-          <View>{weatherList.air.aqi_name}</View>
+          <View>{weatherList.air && weatherList.air.aqi}</View>
+          <View>{weatherList.air && weatherList.air.aqi_name}</View>
         </View>
           
         <Main weatherList={weatherList}></Main>

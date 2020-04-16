@@ -1,5 +1,5 @@
 import Taro, { useState, useEffect } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, ScrollView } from '@tarojs/components'
 import './timedetails.scss'
 import common from '../../common/common'
 import moment from '../../common/moment'

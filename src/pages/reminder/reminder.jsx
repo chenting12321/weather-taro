@@ -1,6 +1,6 @@
 
 import Taro, { useState, useEffect } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Swiper, SwiperItem } from '@tarojs/components'
 import './reminder.scss'
 import IconFont from '../../components/iconfont'
 import { AtIcon } from 'taro-ui'
@@ -26,18 +26,18 @@ function Reminder(props) {
   }, [props.weatherList])
 
   return (
-    <Swiper className="reminder"
+    <Swiper className="reminder-class"
       indicatorDots="true" 
       indicatorColor="rgba(194, 191, 191, .4)"
       indicatorActiveColor="rgb(194, 191, 191)"
     >
       <SwiperItem>
-        <View class="swiper-item">
+        <View class="swiper-item" style={'display: flex'}>
           {
             arr && arr.slice(0, 4).map((r, i) => {
               return (
                 <View key={String(i)} className="list">
-                  <AtIcon value='heart' size="18"/>
+                  <AtIcon value='heart' size="18" color='#dd59ee'/>
 
                   <View>{r.info}</View>
                   <View className="c-666">{r.name}</View>
@@ -47,12 +47,12 @@ function Reminder(props) {
           }
           
         </View>
-        <View class="swiper-item">
+        <View class="swiper-item" style={'display: flex'}>
           {
             arr && arr.slice(4, 8).map((r, i) => {
               return (
                 <View key={String(i)} className="list">
-                  <AtIcon value='heart' size="18"/>
+                  <AtIcon value='heart' size="18" color='#dd59ee'/>
 
                   <View>{r.info}</View>
                   <View className={r.name.length > 4 ? 'c-666 f-10' : 'c-666'}>{r.name}</View>
@@ -63,12 +63,12 @@ function Reminder(props) {
         </View>
       </SwiperItem>
       <SwiperItem>
-      <View class="swiper-item" >
+      <View class="swiper-item"  style={'display: flex'}>
           {
             arr && arr.slice(8, 12).map((r, i) => {
               return (
                 <View key={String(i)} className="list">
-                  <AtIcon value='heart' size="18"/>
+                  <AtIcon value='heart' size="18"  color='#dd59ee'/>
                   <View>{r.info}</View>
                   <View className="c-666">{r.name}</View>
                 </View>
@@ -77,12 +77,12 @@ function Reminder(props) {
           }
           
         </View>
-        <View class="swiper-item">
+        <View class="swiper-item"  style={'display: flex'}>
           {
             arr && arr.slice(12, 16).map((r, i) => {
               return (
                 <View key={String(i)} className="list">
-                  <AtIcon value='heart' size="18"/>
+                  <AtIcon value='heart' size="18" color='#dd59ee'/>
                   <View>{r.info}</View>
                   <View className={r.name.length > 4 ? 'c-666 f-10' : 'c-666'}>{r.name}</View>
                 </View>

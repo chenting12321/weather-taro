@@ -74,22 +74,26 @@ function Search() {
         }
    
       })
-
+    },
+    clickedCurrent() { // 点击当前定位
+      // console.log('curr', currentLoc);
+      Taro.setStorage({
+        key: "active",
+        data: currentLoc
+      })
+      Taro.navigateBack() // 选择之后跳回index页面
     },
     clickChecked(index) { // 选择搜索事件
-      // console.log('index', index);
       // console.log('searchArr', searchArr[index])
-      console.log('historyArr', historyArr);
-      
+      // console.log('historyArr', historyArr);
       let _newArr = historyArr // 历史列表
       _newArr.unshift(searchArr[index]) // 把搜索的插入历史记录
       if (_newArr.length > 3) {
         _newArr = _newArr.slice(0, 2) // 只保留最新
       }
       setHistoryArr(_newArr) // 历史记录
-      console.log('_newArr', _newArr);
-      console.log('--', historyArr);
-
+      // console.log('_newArr', _newArr);
+      // console.log('--', historyArr);
       // 把最新的三个历史搜索记录保存起来
       Taro.setStorage({
         key: "historyData",
@@ -137,8 +141,8 @@ function Search() {
       <View className="content" style={isShow ? { display: 'block' } : { display: 'none' }}>
         <View>
           <View className="title">当前定位</View>
-          <View className="itemStyle">
-            {currentLoc}
+          <View className="itemStyle" onClick={clicked.clickedCurrent}>
+            {currentLoc && currentLoc[currentLoc.length - 1].split(',') || '宝山区'}
           </View>
         </View>
 
