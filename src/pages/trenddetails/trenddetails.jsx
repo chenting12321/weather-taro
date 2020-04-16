@@ -128,7 +128,7 @@ function TrendDetails(props) {
           time && time.map((k, index) => {
             return (
               <View className="item" key={String(index)} >
-                <IconFont className="l-60" name={common.getIconStr(k.night_weather_code).iconName} size="45" />
+                <IconFont className="l-60" name={common.getIconStr(k.night_weather_code).iconName} size="45"/>
                 <View className={index ? 'l-60 ' : 'l-60 c-666'}>{k.night_weather}</View>
                 <View className="c-666">{k.night_wind_direction}</View>
                 <View className="c-666">{k.night_wind_direction_code}级</View>

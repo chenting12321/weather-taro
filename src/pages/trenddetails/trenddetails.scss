@@ -9,12 +9,20 @@
   }
   .item{
     flex: 1;
+    text-align: center;
+    icon-font{
+      display: inline-block;
+    }
   }
   .c-666{
     color: #666;
   }
   .l-60{
     line-height: 60px;
+  }
+  .hhhh{
+    text-align: center;
+
   }
 }
 
