@@ -21,11 +21,12 @@ function Index() {
     let [isRefresh, activeVal] = [false, []] // 是否刷新, 当前地址
     try {
       isRefresh = Taro.getStorageSync('isRefresh');
+      
     } catch (e) {
       console.log('报错提示', e);
     }
     if (isRefresh) {
-      // 不希望刷新，但是要重新置空
+      console.log('isRefresh', isRefresh);
       Taro.setStorage({
         key: 'isRefresh',
         data: false
@@ -45,8 +46,9 @@ function Index() {
     let address = []
     if (activeVal.length) {
       httpWeather(Array.isArray(activeVal) ? activeVal : activeVal.split(','))
+      return
     }
-    // console.log('...', activeVal);
+    console.log('...', activeVal);
     
     new Promise ((res) => {
       if (process.env.TARO_ENV === 'weapp') { // weapp
@@ -65,8 +67,10 @@ function Index() {
               } else {
                 address.push(_data.province, _data.city, _data.district)
               }
+              console.log('address', address);
+              
               Taro.setStorage({ // 当前定位
-                key: "loct",
+                key: "currentAddress",
                 data: address
               })
               // res();
@@ -87,18 +91,17 @@ function Index() {
       }
     })
     new Promise ((res) => {
-      console.log('999', res);
       Taro.setStorage({
         key: 'active',
         data: address
       })
       httpWeather(address) // active的地址
-      // res()
+      res()
     })
 
   }
   const httpWeather = (params) => {
-    console.log(params);
+    console.log('params', params);
     Taro.request({
       // url: 'https://wwxinmao.top/api/weather',
       url: common.ajax('weather'),
@@ -114,7 +117,7 @@ function Index() {
       setweatherList(data) // 获取数据list
       setObserve(data.observe) // 获取当前天气数据
       setBgc(air_bgc[data.air.aqi_level - 1]) // 获取当前天气数据
-      console.log('res.data.item', data)
+      console.log('数据', data)
     })
   }
   return (

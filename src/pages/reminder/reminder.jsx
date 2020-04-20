@@ -20,7 +20,7 @@ function Reminder(props) {
             _arr.push(_value)
           }
       }
-      console.log(_arr)
+      // console.log(_arr)
       setArr(_arr)
     }
   }, [props.weatherList])

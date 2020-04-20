@@ -10,18 +10,10 @@ function Search() {
   let [isShow, setIsShow] = useState(true) // 点击搜索,下方的内容显隐
   const scenicArr = ['故宫', '颐和园','黄山', '泰山', '九寨沟', '龙门石窟']
   const hotCity = ['北京', '上海', '深圳', '郑州']
-  let [currentLoc, setLoct] = useState('') // 当前定位
+  let [currentLoc, setCurrentLoct] = useState('') // 当前定位
 
   // 第一次进来查找历史记录
   useDidShow(() => { // 等同于 componentDidHide 页面生命周期钩子
-    // Taro.getStorage({
-    //   key: 'historyData',
-    //   success (res) {
-    //     console.log('try', res.data)
-    //     setHistoryArr(res.data);
-    //   }
-    // })
-
     try {
       var value = Taro.getStorageSync('historyData');
       if (value) {
@@ -31,10 +23,10 @@ function Search() {
       setHistoryArr([]);
     }
     try {
-      var loct = Taro.getStorageSync('loct');
-      if (loct) {
-        console.log('loct', loct);
-        setLoct(loct)
+      var currentAddress = Taro.getStorageSync('currentAddress'); // 当前定位
+      if (currentAddress) {
+        console.log('currentAddress', currentAddress);
+        setCurrentLoct(currentAddress)
       }
     } catch (e) {
       console.log('错误信息', e)
@@ -169,7 +161,7 @@ function Search() {
                     onClick={() => {
                       Taro.setStorage({
                         key: 'active',
-                        data: r.split(',')
+                        data: r.split(',') + '=='
                       });
                       Taro.navigateBack();
                     }}>
